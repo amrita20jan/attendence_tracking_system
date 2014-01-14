@@ -1,0 +1,9 @@
+
+<%  @users=User.all %>
+<%  @user_times=UserTime.all.where("date(arrival_time)=?",DateTime.now.to_date)%>
+<% @user_times.map{|e|e.arrival_time.in_time_zone('Mumbai').strftime("%H:%M")}%>
+<%= "Welcome #{@average_time}" %> 
+   
+
+<% @development=User.all.where(:role=>"development")%>
+<% @dev= @development.map{|e|e.user_times.map{|c|c.arrival_time}}%>

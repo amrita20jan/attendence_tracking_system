@@ -1,0 +1,44 @@
+ <CENTER><h1>WELCOME TO ATTENDENCE TRACKING SYSTEM</h1></CENTER>
+<br>
+<br>
+<center>
+<%= form_tag(controller: "sessions", action: "login", method: "post") do %>
+      <tr>
+      <%= label_tag(:username, "username:") %>
+      <%= text_field_tag(:username) %>
+       </tr>
+       <tr>
+       <%= submit_tag("Login") %>
+       </tr>
+<% end %></br>
+</br>
+</center>
+
+<h4><p align="right"><%= link_to 'Sign Up', new_user_path %></align="right"></h4>
+<h4><p align="right"><%= link_to 'Analytics', analytics_path %></align="right"></h4>
+
+ 
+<h4>LOGGED EMPLOYEES</h4>
+
+<table border=1>
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Role</th>
+      <th>ArrivalTime</th>
+          </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.username %></td>
+        <td><%= user.role %></td>
+        <td><%= user.user_times.map{|e|e.arrival_time} %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
