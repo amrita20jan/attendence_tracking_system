@@ -64,14 +64,24 @@ class UsersController < ApplicationController
   end
   
   def analytics
-
+  
+    #average time of all the users.
     @average_time= avg_times(UserTime.all.where("date(arrival_time)=?",DateTime.now.to_date).map{|e|e.arrival_time.in_time_zone('Mumbai').strftime("%H:%M")})
     puts " average time controller #{@average_time}"
+    
+    #average time of all the users who are developers.
+    @average_time_deve=avg_times(User.all.where(:role=>"development").map{|e|e.user_times.map{|c|c.arrival_time}}&&UserTime.all.where("date(arrival_time)=?",DateTime.now.to_date).map{|c|c.arrival_time.in_time_zone('Mumbai').strftime("H%:%M")}
+)
+        puts " average time development #{@average_time_deve}"
+    
+    #average time of all the users who are in testing.
+    @average_time_deve=avg_times(User.all.where(:role=>"testing").map{|e|e.user_times.map{|c|c.arrival_time}}&&UserTime.all.where("date(arrival_time)=?",DateTime.now.to_date).map{|c|c.arrival_time.in_time_zone('Mumbai').strftime("H%:%M")}
+)
   end
  
-   #@user_times=UserTime.all.where("date(arrival_time)=?",DateTime.now.to_date).map{|e|e.arrival_time.in_time_zone('Mumbai').strftime("%H:%M")}
+   # @user_times=UserTime.all.where("date(arrival_time)=?",DateTime.now.to_date).map{|e|e.arrival_time.in_time_zone('Mumbai').strftime("%H:%M")}
 
-   #var= @user_times.map{|e|e.arrival_time.in_time_zone('Mumbai').strftime("%H:%M")}
+   # var= @user_times.map{|e|e.arrival_time.in_time_zone('Mumbai').strftime("%H:%M")}
 
    def avg_times(var)
 
@@ -91,7 +101,8 @@ class UsersController < ApplicationController
           avg_value=grand_total/size
           
           average_time=avg_value.to_f/60
-          puts "average #{average_time}"
+          #puts "average #{average_time}"
+          #return average_time
     end
   
   

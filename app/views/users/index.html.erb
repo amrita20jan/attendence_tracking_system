@@ -34,7 +34,7 @@
       <tr>
         <td><%= user.username %></td>
         <td><%= user.role %></td>
-        <td><%= user.user_times.map{|e|e.arrival_time} %></td>
+        <td><%= user.user_times.last.arrival_time %></td>
       </tr>
     <% end %>
   </tbody>

@@ -2,8 +2,17 @@
 <%  @users=User.all %>
 <%  @user_times=UserTime.all.where("date(arrival_time)=?",DateTime.now.to_date)%>
 <% @user_times.map{|e|e.arrival_time.in_time_zone('Mumbai').strftime("%H:%M")}%>
-<%= "Welcome #{@average_time}" %> 
+
+<%= "Average Time of all the employees #{@average_time}" %></br> 
    
 
 <% @development=User.all.where(:role=>"development")%>
-<% @dev= @development.map{|e|e.user_times.map{|c|c.arrival_time}}%>
+<% @dev= @development.map{|e|e.user_times.map{|c|c.arrival_time}}&&UserTime.all.where("date(arrival_time)=?",DateTime.now.to_date).map{|c|c.arrival_time.in_time_zone('Mumbai').strftime("H%:%M")}%>
+
+
+<br><%= "Average time of development Team #{@average_time_deve}" %> 
+
+<% @testing=User.all.where(:role=>"development")%>
+<% @test= @testing.map{|e|e.user_times.map{|c|c.arrival_time}}&&UserTime.all.where("date(arrival_time)=?",DateTime.now.to_date).map{|c|c.arrival_time.in_time_zone('Mumbai').strftime("H%:%M")}%>
+
+<br><%= "Average time of testing Team #{@average_time_deve}" %> 
